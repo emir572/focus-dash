@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Dash</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="anne.png">
+</head>
+<body>
+    <div class="container">
+        <h1 id="greeting">Merhaba!</h1>
+        <h2 id="clock">00:00:00</h2>
+
+        <div class="todo-section">
+    <form onsubmit="event.preventDefault(); addTodo();">
+        <input type="text" id="todo-input" placeholder="Bugün neye odaklanacaksın?">
+        <button type="submit">Ekle</button>
+    </form>
+    <ul id="todo-list"></ul>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
