@@ -1,5 +1,10 @@
 body {
-    background-color: #121212;
+    /* Hareketli Arka Plan Kodları */
+    background: linear-gradient(-45deg, #121212, #0f2027, #203a43, #121212);
+    background-size: 400% 400%;
+    animation: nefesAlma 15s ease infinite;
+
+    /* Sabit Kalan Tasarım Ayarları */
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
@@ -9,41 +14,9 @@ body {
     margin: 0;
 }
 
-.container {
-    text-align: center;
-    background: #1e1e1e;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    width: 350px;
-}
-
-#clock { font-size: 3rem; margin: 10px 0; color: #00adb5; }
-
-input {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    width: 70%;
-    outline: none;
-}
-
-button {
-    padding: 10px;
-    background: #00adb5;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-ul { list-style: none; padding: 0; margin-top: 20px; text-align: left; }
-
-li {
-    background: #252525;
-    padding: 10px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
+/* Animasyonun Hareket Motoru */
+@keyframes nefesAlma {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
