@@ -4,7 +4,7 @@ function updateClock() {
     const hours = now.getHours();
     document.getElementById('clock').innerText = now.toLocaleTimeString('tr-TR');
     
-    let greeting = hours < 12 ? "Günaydın" : hours < 18 ? "İyi Günler" : "İyi Akşamlar";
+    let greeting = hours < 12 ? "Canım Anam" : hours < 18 ? "Canım Anam" : "Canım Anam";
     document.getElementById('greeting').innerText = greeting;
 }
 setInterval(updateClock, 1000);
@@ -56,4 +56,5 @@ function saveTodos() {
         todos.push(text);
     });
     localStorage.setItem('myTodos', JSON.stringify(todos));
+
 }
