@@ -1,10 +1,6 @@
+/* Ana Arka Plan - Derin ve Karanlık */
 body {
-    /* Hareketli Arka Plan Kodları */
-    background: linear-gradient(-45deg, #121212, #0f2027, #203a43, #121212);
-    background-size: 400% 400%;
-    animation: nefesAlma 15s ease infinite;
-
-    /* Sabit Kalan Tasarım Ayarları */
+    background-color: #0a0a0a; /* Tam siyah değil, çok koyu bir antrasit */
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
@@ -12,11 +8,68 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden; /* Işık taşmalarını engeller */
+    position: relative;
 }
 
-/* Animasyonun Hareket Motoru */
-@keyframes nefesAlma {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Epic Tarzı Fareyi Takip Eden Işık Hüzmesi */
+.epic-light {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(9, 9, 121, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none; /* Farenin tıklamasını engellemez, arkada kalır */
+    transform: translate(-50%, -50%);
+    transition: top 0.15s ease-out, left 0.15s ease-out; /* Işığın yumuşakça süzülmesi için */
+    z-index: 1; /* En arkada */
+    filter: blur(50px); /* Işığı dağıtır, sisli yapar */
+}
+
+/* Premium Cam Efekti (Glassmorphism) */
+.todo-section {
+    position: relative;
+    z-index: 10; /* Işığın önünde durması için */
+    background: rgba(255, 255, 255, 0.03); /* Çok hafif şeffaf beyaz */
+    backdrop-filter: blur(16px); /* Arkadan geçen ışığı cam gibi kırar */
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Çok ince cam kenarlığı */
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); /* Derinlik gölgesi */
+    text-align: center;
+}
+
+/* Input ve Buton için Şık Dokunuşlar */
+#todo-input {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: all 0.3s;
+}
+
+#todo-input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+button {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    background: #00d4ff;
+    color: #0a0a0a;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: white;
+    transform: translateY(-2px); /* Üzerine gelince hafif yukarı kalkar */
 }
