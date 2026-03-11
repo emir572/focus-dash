@@ -58,3 +58,16 @@ function saveTodos() {
     localStorage.setItem('myTodos', JSON.stringify(todos));
 
 }
+
+// Epic.net tarzı fareyi takip eden dinamik ışığı oluşturalım
+const isik = document.createElement('div');
+isik.classList.add('epic-light');
+document.body.appendChild(isik);
+
+// Fare ekranda her hareket ettiğinde ışığın konumu güncellenir
+document.addEventListener('mousemove', function(olay) {
+    // Işığı tam farenin ucuna yerleştiriyoruz
+    isik.style.left = olay.clientX + 'px';
+    isik.style.top = olay.clientY + 'px';
+});
+
