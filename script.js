@@ -24,7 +24,14 @@ function addTodo() {
     const text = input.value.trim();
     
     if (text !== "") {
-        renderTodo(text);
+        // O anki tarih ve saati alıyoruz
+        const now = new Date();
+        const tarihSaat = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
+        
+        // Asıl metnin yanına küçük, soluk ve boşluklu bir şekilde tarihi ekliyoruz
+        const metinVeTarih = `${text} <span style="font-size: 12px; opacity: 0.5; margin-left: 8px;">(${tarihSaat})</span>`;
+        
+        renderTodo(metinVeTarih);
         saveTodos(); // Listeyi kaydet
         input.value = "";
     }
@@ -34,8 +41,9 @@ function addTodo() {
 function renderTodo(text) {
     const ul = document.getElementById('todo-list');
     const li = document.createElement('li');
+    // Hizalama (Flexbox) bozulmasın diye yazıyı bir <span> kılıfına aldık. Butonun stiline hiç dokunmadık!
     li.innerHTML = `
-        ${text} 
+        <span>${text}</span> 
         <button onclick="removeTodo(this)" style="margin-left:10px; background:red; border-radius:3px; color:white; border:none; cursor:pointer;">Sil</button>
     `;
     ul.appendChild(li);
@@ -51,12 +59,11 @@ function removeTodo(button) {
 function saveTodos() {
     const todos = [];
     document.querySelectorAll('#todo-list li').forEach(li => {
-        // "Sil" butonunun metnini temizleyip sadece görev metnini alıyoruz
-        const text = li.innerText.replace('Sil', '').trim();
-        todos.push(text);
+        // Sayfa yenilendiğinde tarihlerin stili kaybolmasın diye sadece o kılıfın (span) içini kaydediyoruz
+        const textHTML = li.querySelector('span').innerHTML;
+        todos.push(textHTML);
     });
     localStorage.setItem('myTodos', JSON.stringify(todos));
-
 }
 
 // Epic.net tarzı fareyi takip eden dinamik ışığı oluşturalım
@@ -70,4 +77,3 @@ document.addEventListener('mousemove', function(olay) {
     isik.style.left = olay.clientX + 'px';
     isik.style.top = olay.clientY + 'px';
 });
-
