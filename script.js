@@ -20,8 +20,11 @@ function addTodo() {
     const input = document.getElementById('todo-input');
     const text = input.value.trim();
     if (text !== "") {
-        const tarih = new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
-        const fullText = `${text} <span class="tarih-etiketi">(${tarih})</span>`;
+        const now = new Date(); // 'now' değişkenini tanımladık
+        // Hem tarih (gün.ay.yıl) hem saat (00:00) bilgisini alıyoruz
+        const tarihSaat = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
+        
+        const fullText = `${text} <span class="tarih-etiketi">(${tarihSaat})</span>`;
         renderTodo(fullText);
         saveTodos();
         input.value = "";
@@ -50,10 +53,30 @@ function renderDoneTodo(text) {
     ul.appendChild(li);
 }
 
-function restoreTodo(btn) {
-    const li = btn.parentElement.parentElement;
-    renderTodo(li.querySelector('.gorev-metni').innerText.split('(')[0]);
+// 7. YAPILANLARDAN GERİ YÜKLEME (TARİH VE SAATİ KORUYARAK GERİ ATAR)
+function restoreTodo(button) {
+    const li = button.closest('li');
+    const spanEl = li.querySelector('.gorev-metni');
+    
+    // Sadece ham metni al (İçindeki <span> (tarih) kısmını temizle)
+    // cloneNode kullanıyoruz ki orijinal yapı bozulmadan metni çekebilelim
+    const tempSpan = spanEl.cloneNode(true);
+    const dateSpan = tempSpan.querySelector('.tarih-etiketi');
+    if (dateSpan) dateSpan.remove(); // Tarih kısmını at, sadece yazı kalsın
+    
+    let rawText = tempSpan.innerText.trim();
+    
+    // YENİDEN EKLEME TARİHİNİ OLUŞTUR (GÜN.AY.YIL SAAT:DAKİKA)
+    const now = new Date();
+    const tarihSaat = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
+    const metinVeYeniTarih = `${rawText} <span class="tarih-etiketi">(${tarihSaat})</span>`;
+    
+    // Ana listeye yeni tarihle geri ekle
+    renderTodo(metinVeYeniTarih);
+    
+    // Yapılanlardan tamamen sil
     li.remove();
+    
     saveTodos();
     saveDoneTodos();
 }
