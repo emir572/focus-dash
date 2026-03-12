@@ -166,3 +166,34 @@ li button { background: #ff4757 !important; padding: 5px 10px !important; color:
 @media (max-width: 850px) {
     .done-section { display: none; } 
 }
+
+/* --- YAPILANLAR BUTONLARI KESİN ÇÖZÜM --- */
+#done-list li div {
+    display: flex !important;
+    gap: 10px !important; /* Butonlar arasındaki boşluk */
+    align-items: center !important;
+}
+
+#done-list li button {
+    width: 60px !important; 
+    height: 32px !important; 
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+}
+
+/* Geri Butonu (Mavi) */
+#done-list li button.btn-geri {
+    background: #00d4ff !important;
+    color: #0a0a0a !important;
+}
+
+/* Sil Butonu (Kırmızı) */
+#done-list li button:not(.btn-geri) {
+    background: #ff4757 !important;
+    color: white !important;
+}
+
