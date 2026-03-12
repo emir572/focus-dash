@@ -88,16 +88,22 @@ function renderDoneTodo(text) {
     ul.appendChild(li);
 }
 
-// 7. YAPILANLARDAN GERİ YÜKLEME
+
+// 7. YAPILANLARDAN GERİ YÜKLEME (SAATİ GÜNCELLEYEREK GERİ ATAR)
 function restoreTodo(button) {
     const li = button.closest('li');
     const spanEl = li.querySelector('.gorev-metni');
     
-    // Tarihi sök ve sadece ana metni al
+    // Sadece ham metni al (eski tarih etiketini ayıkla)
     let rawText = spanEl.childNodes.length > 0 ? spanEl.childNodes[0].textContent.trim() : spanEl.textContent.trim();
     
-    // Ana listeye (tarihsiz olarak, temiz bir şekilde) geri ekle
-    renderTodo(rawText);
+    // YENİDEN EKLEME SAATİNİ OLUŞTUR
+    const now = new Date();
+    const tarihSaat = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
+    const metinVeYeniTarih = `${rawText} <span class="tarih-etiketi">(${tarihSaat})</span>`;
+    
+    // Ana listeye yeni tarihle geri ekle
+    renderTodo(metinVeYeniTarih);
     
     // Yapılanlardan tamamen sil
     li.remove();
@@ -137,5 +143,6 @@ document.addEventListener('mousemove', (e) => {
     isik.style.left = e.clientX + 'px';
     isik.style.top = e.clientY + 'px';
 });
+
 
 
