@@ -1,4 +1,4 @@
-/* Ana Arka Plan - Derin ve Karanlık */
+/* Ana Arka Plan */
 body {
     background-color: #0a0a0a;
     color: white;
@@ -12,7 +12,7 @@ body {
     position: relative;
 }
 
-/* Epic Tarzı Fareyi Takip Eden Işık Hüzmesi */
+/* Epic Işık */
 .epic-light {
     position: absolute;
     width: 600px;
@@ -26,7 +26,7 @@ body {
     filter: blur(50px);
 }
 
-/* Premium Cam Efekti (Glassmorphism) */
+/* Cam Paneli */
 .todo-section {
     position: relative;
     z-index: 10;
@@ -38,11 +38,12 @@ body {
     border-radius: 24px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     text-align: center;
-    min-width: 400px; /* Bilgisayarda genişliği korur */
-    max-width: 90%; /* Telefonda ekrandan taşmayı engeller */
+    min-width: 400px;
 }
 
-/* Input ve Buton için Şık Dokunuşlar */
+#clock { font-size: 48px; font-weight: bold; margin-bottom: 5px; color: #00d4ff; }
+#greeting { font-size: 20px; margin-bottom: 20px; opacity: 0.8; }
+
 #todo-input {
     padding: 12px 20px;
     border-radius: 8px;
@@ -71,18 +72,15 @@ button {
     transition: all 0.3s ease;
 }
 
-button:hover {
-    background: white;
-    transform: translateY(-2px);
-}
+button:hover { background: white; transform: translateY(-2px); }
 
-/* Liste ve Kaydırma Ayarları (Tam İstediğin Gibi) */
+/* Liste ve Kaydırma */
 ul {
     list-style-type: none;
     padding: 0;
     margin-top: 20px;
     width: 100%;
-    max-height: 380px; 
+    max-height: 300px; 
     overflow-y: auto;
     padding-right: 5px;
 }
@@ -100,13 +98,8 @@ li {
     border-radius: 10px;
     margin-bottom: 10px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s;
     width: 100%;
     box-sizing: border-box;
-}
-
-li:hover {
-    background: rgba(255, 255, 255, 0.1);
 }
 
 li button {
@@ -114,22 +107,12 @@ li button {
     padding: 6px 12px !important;
     font-size: 13px !important;
     color: white !important;
-    margin-left: 10px !important;
 }
 
-/* --- TELEFON İÇİN TEK DOKUNUŞ --- */
+/* Telefon Uyumu */
 @media (max-width: 480px) {
-    .todo-section {
-        min-width: unset; /* Küçük ekranlarda sabit genişliği bırak */
-        width: 95%; /* Ekranın %95'ine yayıl */
-        padding: 20px; /* Mobilde biraz daha kibar durması için */
-    }
-    #todo-input {
-        width: 100%; /* Giriş alanını genişlet */
-        margin-right: 0;
-        margin-bottom: 10px; /* Butonla arasına mesafe koy */
-    }
-    .todo-section button {
-        width: 100%; /* Butonu telefon genişliğine yay */
-    }
+    .todo-section { min-width: 90%; padding: 20px; }
+    .input-group { flex-direction: column; width: 100%; }
+    #todo-input { margin-right: 0; margin-bottom: 10px; width: 100%; box-sizing: border-box;}
+    button { width: 100%; }
 }
