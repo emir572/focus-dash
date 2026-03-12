@@ -1,3 +1,4 @@
+/* Ana Arka Plan */
 body {
     background-color: #0a0a0a;
     color: white;
@@ -11,6 +12,7 @@ body {
     position: relative;
 }
 
+/* Epic Işık Efekti */
 .epic-light {
     position: absolute;
     width: 600px;
@@ -24,6 +26,7 @@ body {
     filter: blur(50px);
 }
 
+/* Sol Taraf - Yapılanlar Menüsü */
 .done-section {
     position: absolute;
     left: 40px;
@@ -40,13 +43,14 @@ body {
     flex-direction: column;
 }
 
+/* Orta Kısım - Ana Menü */
 .todo-section {
     position: relative;
     z-index: 10;
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 60px 40px 40px 40px; /* Üstten boşluk artırıldı (Gün/Tarih için) */
+    padding: 60px 40px 40px 40px;
     border-radius: 24px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     text-align: center;
@@ -72,17 +76,29 @@ body {
     opacity: 0.8;
 }
 
+/* Saat ve Başlık */
 #clock { font-size: 48px; font-weight: bold; margin-bottom: 5px; color: #00d4ff; }
 #greeting { font-size: 20px; margin-bottom: 20px; opacity: 0.8; }
 
+/* --- İŞTE DÜZELTİLEN YER: İNPUT VE BOŞLUK --- */
 #todo-input {
     padding: 12px 20px;
     border-radius: 8px;
     border: none;
     background: rgba(255, 255, 255, 0.1);
     color: white;
+    font-size: 16px;
+    outline: none;
+    margin-right: 15px; /* Ekle butonuyla arasına boşluk attı */
+    transition: all 0.3s;
 }
 
+#todo-input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); /* Mavi parlama efekti */
+}
+
+/* Ana Buton Stili */
 button {
     padding: 12px 24px;
     border-radius: 8px;
@@ -90,12 +106,20 @@ button {
     background: #00d4ff;
     font-weight: bold;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
+button:hover { 
+    background: white; 
+    transform: translateY(-2px); 
+}
+
+/* Liste Yapısı */
 ul { list-style: none; padding: 0; margin-top: 20px; max-height: 300px; overflow-y: auto; }
 li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background: rgba(255, 255, 255, 0.05);
     padding: 12px;
     border-radius: 10px;
@@ -104,9 +128,41 @@ li {
 
 .tarih-etiketi { font-size: 11px; opacity: 0.5; margin-left: 8px; }
 
+/* Ana Menüdeki Tekli Sil Butonu */
 li button { background: #ff4757 !important; padding: 5px 10px !important; color: white !important; }
-li button.btn-geri { background: #00d4ff !important; color: #0a0a0a !important; margin-right: 5px; }
 
+/* --- YAPILANLAR MENÜSÜ: YAN YANA EŞİT BUTONLAR --- */
+.islem-butonlari {
+    display: flex;
+    flex-direction: row; 
+    gap: 8px; /* İki buton arasındaki boşluk */
+    align-items: center;
+}
+
+.islem-butonlari button {
+    width: 60px !important; 
+    height: 32px !important; 
+    padding: 0 !important; 
+    margin: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+}
+
+/* Yan Yana Butonların Renkleri */
+.islem-butonlari .btn-geri {
+    background: #00d4ff !important;
+    color: #0a0a0a !important;
+}
+
+.islem-butonlari .btn-sil {
+    background: #ff4757 !important;
+    color: white !important;
+}
+
+/* Mobil Görünüm (Sunumda Bozulmayı Önler) */
 @media (max-width: 850px) {
-    .done-section { display: none; } /* Sunumda bozulmasın diye mobilde gizledik */
+    .done-section { display: none; } 
 }
