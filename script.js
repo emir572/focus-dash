@@ -65,3 +65,4 @@ document.addEventListener('mousemove', (e) => {
     isik.style.left = e.clientX + 'px';
     isik.style.top = e.clientY + 'px';
 });
+
