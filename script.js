@@ -3,6 +3,10 @@
 function updateClock() {
     const now = new Date();
     document.getElementById('clock').innerText = now.toLocaleTimeString('tr-TR');
+
+    // Tarihi bul ve sağ üste yazdır
+    const tarih = now.toLocaleDateString('tr-TR'); 
+    document.getElementById('current-date').innerText = tarih;
     
     // YENİ EKLENEN: Günü bul ve baş harfini büyüt
     let gun = now.toLocaleDateString('tr-TR', { weekday: 'long' });
@@ -143,6 +147,7 @@ document.addEventListener('mousemove', (e) => {
     isik.style.left = e.clientX + 'px';
     isik.style.top = e.clientY + 'px';
 });
+
 
 
 
