@@ -3,7 +3,7 @@ function updateClock() {
     const now = new Date();
     const hours = now.getHours();
     document.getElementById('clock').innerText = now.toLocaleTimeString('tr-TR');
-    let greeting = "Canım Anam";
+    let greeting = "To Do";
     document.getElementById('greeting').innerText = greeting;
 }
 setInterval(updateClock, 1000);
@@ -65,4 +65,5 @@ document.addEventListener('mousemove', (e) => {
     isik.style.left = e.clientX + 'px';
     isik.style.top = e.clientY + 'px';
 });
+
 
