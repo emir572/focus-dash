@@ -75,13 +75,37 @@ button:hover {
     transform: translateY(-2px); /* Üzerine gelince hafif yukarı kalkar */
 }
 
-/* --- YENİ EKLEDİĞİM HİZALAMA KODLARI BURADAN BAŞLIYOR --- */
+/* --- LİSTE VE KAYDIRMA AYARLARI --- */
 
 ul {
     list-style-type: none; /* Noktaları kaldırır */
     padding: 0;
     margin-top: 20px;
     width: 100%;
+    
+    /* Kaydırma özellikleri */
+    max-height: 380px; /* Liste boyu bu yüksekliği aşarsa kaydırma başlar */
+    overflow-y: auto;  /* İçerik taşarsa dikey kaydırma çubuğu çıkar */
+    padding-right: 5px; /* Kaydırma çubuğu ile içerik arasında minik bir boşluk */
+}
+
+/* Şık ve İnce Kaydırma Çubuğu Tasarımı */
+ul::-webkit-scrollbar {
+    width: 5px;
+}
+
+ul::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+}
+
+ul::-webkit-scrollbar-thumb {
+    background: rgba(0, 212, 255, 0.3); /* Senin o güzel mavi tonun */
+    border-radius: 10px;
+}
+
+ul::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 212, 255, 0.6);
 }
 
 li {
@@ -108,6 +132,7 @@ li button {
     padding: 6px 12px !important;
     font-size: 13px !important;
     color: white !important;
+    margin-left: 10px !important; /* Yazı ile buton arasına boşluk */
 }
 
 li button:hover {
