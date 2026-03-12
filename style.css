@@ -1,6 +1,6 @@
 /* Ana Arka Plan - Derin ve Karanlık */
 body {
-    background-color: #0a0a0a; /* Tam siyah değil, çok koyu bir antrasit */
+    background-color: #0a0a0a;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
@@ -8,7 +8,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    overflow: hidden; /* Işık taşmalarını engeller */
+    overflow: hidden;
     position: relative;
 }
 
@@ -19,26 +19,27 @@ body {
     height: 600px;
     background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(9, 9, 121, 0) 70%);
     border-radius: 50%;
-    pointer-events: none; /* Farenin tıklamasını engellemez, arkada kalır */
+    pointer-events: none;
     transform: translate(-50%, -50%);
-    transition: top 0.15s ease-out, left 0.15s ease-out; /* Işığın yumuşakça süzülmesi için */
-    z-index: 1; /* En arkada */
-    filter: blur(50px); /* Işığı dağıtır, sisli yapar */
+    transition: top 0.15s ease-out, left 0.15s ease-out;
+    z-index: 1;
+    filter: blur(50px);
 }
 
 /* Premium Cam Efekti (Glassmorphism) */
 .todo-section {
     position: relative;
-    z-index: 10; /* Işığın önünde durması için */
-    background: rgba(255, 255, 255, 0.03); /* Çok hafif şeffaf beyaz */
-    backdrop-filter: blur(16px); /* Arkadan geçen ışığı cam gibi kırar */
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05); /* Çok ince cam kenarlığı */
+    border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 40px;
     border-radius: 24px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5); /* Derinlik gölgesi */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     text-align: center;
-    min-width: 400px; /* Panonun çok daralmaması için */
+    min-width: 400px; /* Bilgisayarda genişliği korur */
+    max-width: 90%; /* Telefonda ekrandan taşmayı engeller */
 }
 
 /* Input ve Buton için Şık Dokunuşlar */
@@ -72,53 +73,35 @@ button {
 
 button:hover {
     background: white;
-    transform: translateY(-2px); /* Üzerine gelince hafif yukarı kalkar */
+    transform: translateY(-2px);
 }
 
-/* --- LİSTE VE KAYDIRMA AYARLARI --- */
-
+/* Liste ve Kaydırma Ayarları (Tam İstediğin Gibi) */
 ul {
-    list-style-type: none; /* Noktaları kaldırır */
+    list-style-type: none;
     padding: 0;
     margin-top: 20px;
     width: 100%;
-    
-    /* Kaydırma özellikleri */
-    max-height: 380px; /* Liste boyu bu yüksekliği aşarsa kaydırma başlar */
-    overflow-y: auto;  /* İçerik taşarsa dikey kaydırma çubuğu çıkar */
-    padding-right: 5px; /* Kaydırma çubuğu ile içerik arasında minik bir boşluk */
+    max-height: 380px; 
+    overflow-y: auto;
+    padding-right: 5px;
 }
 
-/* Şık ve İnce Kaydırma Çubuğu Tasarımı */
-ul::-webkit-scrollbar {
-    width: 5px;
-}
-
-ul::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 10px;
-}
-
-ul::-webkit-scrollbar-thumb {
-    background: rgba(0, 212, 255, 0.3); /* Senin o güzel mavi tonun */
-    border-radius: 10px;
-}
-
-ul::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 212, 255, 0.6);
-}
+ul::-webkit-scrollbar { width: 5px; }
+ul::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
+ul::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.3); border-radius: 10px; }
 
 li {
-    display: flex; /* Esnek kutu modeli */
-    justify-content: space-between; /* Yazı sola, buton sağa */
-    align-items: center; /* Dikeyde ortala */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: rgba(255, 255, 255, 0.05);
     padding: 12px 15px;
     border-radius: 10px;
     margin-bottom: 10px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s;
-    width: 100%; /* Hepsi aynı genişlikte olsun */
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -126,16 +109,27 @@ li:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Listedeki Sil butonlarını özelleştirelim */
 li button {
-    background: #ff4757 !important; /* Sil butonu kırmızı kalsın */
+    background: #ff4757 !important;
     padding: 6px 12px !important;
     font-size: 13px !important;
     color: white !important;
-    margin-left: 10px !important; /* Yazı ile buton arasına boşluk */
+    margin-left: 10px !important;
 }
 
-li button:hover {
-    background: white !important;
-    color: #ff4757 !important;
+/* --- TELEFON İÇİN TEK DOKUNUŞ --- */
+@media (max-width: 480px) {
+    .todo-section {
+        min-width: unset; /* Küçük ekranlarda sabit genişliği bırak */
+        width: 95%; /* Ekranın %95'ine yayıl */
+        padding: 20px; /* Mobilde biraz daha kibar durması için */
+    }
+    #todo-input {
+        width: 100%; /* Giriş alanını genişlet */
+        margin-right: 0;
+        margin-bottom: 10px; /* Butonla arasına mesafe koy */
+    }
+    .todo-section button {
+        width: 100%; /* Butonu telefon genişliğine yay */
+    }
 }
