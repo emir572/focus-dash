@@ -1,4 +1,3 @@
-/* Ana Arka Plan */
 body {
     background-color: #0a0a0a;
     color: white;
@@ -12,7 +11,6 @@ body {
     position: relative;
 }
 
-/* Epic Işık */
 .epic-light {
     position: absolute;
     width: 600px;
@@ -26,50 +24,52 @@ body {
     filter: blur(50px);
 }
 
-/* YENİ EKLENEN: Yapılanlar Paneli (Sol Menü) */
 .done-section {
     position: absolute;
-    left: 40px; /* Soldan boşluk */
-    top: 40px;  /* Yukarıdan boşluk */
+    left: 40px;
+    top: 40px;
     z-index: 10;
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 20px;
     border-radius: 24px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     width: 320px;
-    max-height: calc(100vh - 80px); /* Aşağıdan taşmayı önler */
+    max-height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
 }
 
-.done-section h2 {
-    margin-top: 0;
-    font-size: 18px;
-    color: #00d4ff;
-    opacity: 0.8;
-    text-align: center;
-    margin-bottom: 15px;
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-
-/* Cam Paneli (Mevcut Ana Menü) */
 .todo-section {
     position: relative;
     z-index: 10;
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 40px;
+    padding: 60px 40px 40px 40px; /* Üstten boşluk artırıldı (Gün/Tarih için) */
     border-radius: 24px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     text-align: center;
-    min-width: 400px;
+    min-width: 450px;
+}
+
+/* Gün ve Tarih Konumlandırma */
+#current-day {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    font-size: 16px;
+    color: #00d4ff;
+    opacity: 0.8;
+}
+
+#current-date {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 16px;
+    color: #00d4ff;
+    opacity: 0.8;
 }
 
 #clock { font-size: 48px; font-weight: bold; margin-bottom: 5px; color: #00d4ff; }
@@ -79,17 +79,8 @@ body {
     padding: 12px 20px;
     border-radius: 8px;
     border: none;
-    outline: none;
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    font-size: 16px;
-    margin-right: 10px;
-    transition: all 0.3s;
-}
-
-#todo-input:focus {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
 }
 
 button {
@@ -97,120 +88,25 @@ button {
     border-radius: 8px;
     border: none;
     background: #00d4ff;
-    color: #0a0a0a;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-button:hover { background: white; transform: translateY(-2px); }
-
-/* Liste ve Kaydırma (İki panel için de geçerli) */
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 20px;
-    width: 100%;
-    overflow-y: auto;
-    padding-right: 5px;
-}
-
-/* Ana menü listesi maksimum boyu */
-#todo-list { max-height: 300px; }
-/* Yapılanlar menüsü listesi maksimum boyu */
-#done-list { max-height: 100%; margin-top: 0; flex-grow: 1; }
-
-ul::-webkit-scrollbar { width: 5px; }
-ul::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
-ul::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.3); border-radius: 10px; }
-
+ul { list-style: none; padding: 0; margin-top: 20px; max-height: 300px; overflow-y: auto; }
 li {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     background: rgba(255, 255, 255, 0.05);
-    padding: 12px 15px;
+    padding: 12px;
     border-radius: 10px;
     margin-bottom: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    width: 100%;
-    box-sizing: border-box;
 }
 
-/* Görev metnini uzun olursa alt satıra at ve flex yapısını bozmasını engelle */
-.gorev-metni {
-    flex: 1;
-    text-align: left;
-    margin-right: 15px;
-    word-break: break-word;
-}
+.tarih-etiketi { font-size: 11px; opacity: 0.5; margin-left: 8px; }
 
-/* Tarih etiketi stili (Temiz HTML için sınıfa bağladık) */
-.tarih-etiketi {
-    font-size: 11px;
-    opacity: 0.5;
-    margin-left: 8px;
-    white-space: nowrap;
-}
+li button { background: #ff4757 !important; padding: 5px 10px !important; color: white !important; }
+li button.btn-geri { background: #00d4ff !important; color: #0a0a0a !important; margin-right: 5px; }
 
-/* Silme Butonu Standart */
-li button {
-    background: #ff4757 !important;
-    padding: 6px 12px !important;
-    font-size: 13px !important;
-    color: white !important;
-    min-width: 45px;
-}
-
-/* Yeni Geri Yükle Butonu (Mavi) */
-li button.btn-geri {
-    background: #00d4ff !important;
-    color: #0a0a0a !important;
-}
-
-/* Dar Ekran Uyumlu (Responsive) */
 @media (max-width: 850px) {
-    body {
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-top: 20px;
-        overflow-y: auto;
-    }
-    .done-section {
-        position: relative;
-        left: 0;
-        top: 0;
-        margin-bottom: 20px;
-        width: 90%;
-        max-width: 400px;
-        max-height: 250px;
-    }
-    .todo-section { min-width: 90%; padding: 20px; }
-    .input-group { flex-direction: column; width: 100%; }
-    #todo-input { margin-right: 0; margin-bottom: 10px; width: 100%; box-sizing: border-box;}
-    button { width: 100%; }
+    .done-section { display: none; } /* Sunumda bozulmasın diye mobilde gizledik */
 }
-/* Gün Yazısı (Sol Üst) */
-#current-day {
-    position: absolute;
-    top: 25px;
-    left: 25px;
-    font-size: 18px;
-    font-weight: 500;
-    color: #00d4ff;
-    opacity: 0.7;
-    letter-spacing: 1px;
-}
-
-#current-date {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    font-size: 18px;
-    font-weight: 500;
-    color: #00d4ff;
-    opacity: 0.7;
-    letter-spacing: 1px;
-}
-
-
