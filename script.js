@@ -1,7 +1,14 @@
 // 1. SAAT VE SELAMLAMA
+// 1. SAAT VE SELAMLAMA
 function updateClock() {
     const now = new Date();
     document.getElementById('clock').innerText = now.toLocaleTimeString('tr-TR');
+    
+    // YENİ EKLENEN: Günü bul ve baş harfini büyüt
+    let gun = now.toLocaleDateString('tr-TR', { weekday: 'long' });
+    gun = gun.charAt(0).toUpperCase() + gun.slice(1).toLowerCase();
+    document.getElementById('current-day').innerText = gun;
+
     let greeting = "To Do";
     document.getElementById('greeting').innerText = greeting;
 }
@@ -130,3 +137,4 @@ document.addEventListener('mousemove', (e) => {
     isik.style.left = e.clientX + 'px';
     isik.style.top = e.clientY + 'px';
 });
+
