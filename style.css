@@ -8,10 +8,11 @@ body {
     align-items: flex-start; /* Üstten başlasın ki aşağı kayabilsin */
     min-height: 100vh;
     margin: 0;
+    padding: 20px 0;    /* Mobilde en alt ve en üstte boşluk olsun */
+    position: relative;
     overflow-x: hidden; /* Sağa sola taşmayı engelle */
     overflow-y: auto;   /* Yukarı aşağı kaymayı aç */
-    position: relative;
-    padding: 20px 0;    /* Mobilde en alt ve en üstte boşluk olsun */
+    touch-action: pan-x pan-y; /* Çift tıklama zoomunu engeller, sadece kaydırmaya izin verir */
 }
 
 /* Epic Işık Efekti */
@@ -111,6 +112,7 @@ button {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
+    touch-action: manipulation;
 }
 
 button:hover { 
