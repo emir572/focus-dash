@@ -20,8 +20,7 @@ function addTodo() {
     const input = document.getElementById('todo-input');
     const text = input.value.trim();
     if (text !== "") {
-        const now = new Date(); // 'now' değişkenini tanımladık
-        // Hem tarih (gün.ay.yıl) hem saat (00:00) bilgisini alıyoruz
+        const now = new Date(); 
         const tarihSaat = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
         
         const fullText = `${text} <span class="tarih-etiketi">(${tarihSaat})</span>`;
@@ -34,7 +33,8 @@ function addTodo() {
 function renderTodo(text) {
     const ul = document.getElementById('todo-list');
     const li = document.createElement('li');
-    li.innerHTML = `<span class="gorev-metni">${text}</span><button onclick="removeTodo(this)">Sil</button>`;
+    /* İŞTE BURASI DEĞİŞTİ: 'Sil' yazısı 'Gönder' oldu */
+    li.innerHTML = `<span class="gorev-metni">${text}</span><button onclick="removeTodo(this)">Gönder</button>`;
     ul.appendChild(li);
 }
 
@@ -59,13 +59,11 @@ function renderDoneTodo(text) {
     ul.appendChild(li);
 }
 
-// 7. YAPILANLARDAN GERİ YÜKLEME (TARİH VE SAATİ KORUYARAK GERİ ATAR)
 function restoreTodo(button) {
     const li = button.closest('li');
-    // İçerideki metni ve tarih etiketini hiç bozmadan paket olarak al
     const eskiIcerik = li.querySelector('.gorev-metni').innerHTML;
     
-    renderTodo(eskiIcerik); // Olduğu gibi geri gönder (ilk tarihle beraber)
+    renderTodo(eskiIcerik); 
     li.remove();
     
     saveTodos();
