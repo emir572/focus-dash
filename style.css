@@ -182,33 +182,45 @@ li button { background: #916BBF !important; padding: 5px 10px !important; color:
         flex-direction: column;
         align-items: center;
         overflow-y: auto; 
+        padding: 20px 10px; /* Kenarlardan taşmayı önlemek için küçük bir pay */
     }
 
     .done-section {
         position: relative; 
-        left: 0;
-        top: 0;
-        width: 90%; 
+        left: 0 !important; /* Kesinlikle sıfırla */
+        top: 0 !important;
+        width: 95% !important; /* Kenarlara çok yapışmasın diye %95 yaptık */
         max-height: none; 
         margin-top: 20px;
         order: 2; 
+        box-sizing: border-box; /* Padding'in genişliği bozmasını engeller */
     }
 
     .todo-section {
-        width: 90%;
-        min-width: unset; 
+        width: 95% !important; 
+        min-width: unset !important; /* Kaymanın ana sebebi buydu, bunu kırdık */
         padding: 50px 20px 30px 20px;
         order: 1; 
+        box-sizing: border-box;
     }
 
     #todo-input {
         width: 100%; 
         margin-right: 0;
         margin-bottom: 10px;
+        box-sizing: border-box;
     }
 
     .input-group {
         flex-direction: column; 
         align-items: center;
+        width: 100%;
+    }
+    
+    /* İkonların veya yazıların dışarı taşmasını önlemek için genel kural */
+    * {
+        max-width: 100%;
+        box-sizing: border-box;
     }
 }
+
