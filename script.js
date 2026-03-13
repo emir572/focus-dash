@@ -56,25 +56,10 @@ function renderDoneTodo(text) {
 // 7. YAPILANLARDAN GERİ YÜKLEME (TARİH VE SAATİ KORUYARAK GERİ ATAR)
 function restoreTodo(button) {
     const li = button.closest('li');
-    const spanEl = li.querySelector('.gorev-metni');
+    // İçerideki metni ve tarih etiketini hiç bozmadan paket olarak al
+    const eskiIcerik = li.querySelector('.gorev-metni').innerHTML;
     
-    // Sadece ham metni al (İçindeki <span> (tarih) kısmını temizle)
-    // cloneNode kullanıyoruz ki orijinal yapı bozulmadan metni çekebilelim
-    const tempSpan = spanEl.cloneNode(true);
-    const dateSpan = tempSpan.querySelector('.tarih-etiketi');
-    if (dateSpan) dateSpan.remove(); // Tarih kısmını at, sadece yazı kalsın
-    
-    let rawText = tempSpan.innerText.trim();
-    
-    // YENİDEN EKLEME TARİHİNİ OLUŞTUR (GÜN.AY.YIL SAAT:DAKİKA)
-    const now = new Date();
-    const tarihSaat = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
-    const metinVeYeniTarih = `${rawText} <span class="tarih-etiketi">(${tarihSaat})</span>`;
-    
-    // Ana listeye yeni tarihle geri ekle
-    renderTodo(metinVeYeniTarih);
-    
-    // Yapılanlardan tamamen sil
+    renderTodo(eskiIcerik); // Olduğu gibi geri gönder (ilk tarihle beraber)
     li.remove();
     
     saveTodos();
@@ -100,3 +85,4 @@ document.addEventListener('mousemove', (e) => {
     isik.style.left = e.clientX + 'px';
     isik.style.top = e.clientY + 'px';
 });
+
