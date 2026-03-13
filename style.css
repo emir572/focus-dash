@@ -5,11 +5,13 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start; /* Üstten başlasın ki aşağı kayabilsin */
+    min-height: 100vh;
     margin: 0;
-    overflow: hidden;
+    overflow-x: hidden; /* Sağa sola taşmayı engelle */
+    overflow-y: auto;   /* Yukarı aşağı kaymayı aç */
     position: relative;
+    padding: 20px 0;    /* Mobilde en alt ve en üstte boşluk olsun */
 }
 
 /* Epic Işık Efekti */
@@ -55,6 +57,7 @@ body {
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     text-align: center;
     min-width: 450px;
+    margin-top: 40px; /* Üstten pay bırak */
 }
 
 /* Gün ve Tarih Konumlandırma */
@@ -80,7 +83,7 @@ body {
 #clock { font-size: 48px; font-weight: bold; margin-bottom: 5px; color: #00d4ff; }
 #greeting { font-size: 20px; margin-bottom: 20px; opacity: 0.8; }
 
-/* --- İŞTE DÜZELTİLEN YER: İNPUT VE BOŞLUK --- */
+/* İNPUT VE BOŞLUK */
 #todo-input {
     padding: 12px 20px;
     border-radius: 8px;
@@ -89,13 +92,14 @@ body {
     color: white;
     font-size: 16px;
     outline: none;
-    margin-right: 15px; /* Ekle butonuyla arasına boşluk attı */
+    margin-right: 15px;
     transition: all 0.3s;
+    width: 60%; /* Mobilde sığması için esnek yaptık */
 }
 
 #todo-input:focus {
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); /* Mavi parlama efekti */
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
 }
 
 /* Ana Buton Stili */
@@ -115,7 +119,7 @@ button:hover {
 }
 
 /* Liste Yapısı */
-ul { list-style: none; padding: 0; margin-top: 20px; max-height: 300px; overflow-y: auto; }
+ul { list-style: none; padding: 0; margin-top: 20px; max-height: 400px; overflow-y: auto; }
 li {
     display: flex;
     justify-content: space-between;
@@ -124,53 +128,26 @@ li {
     padding: 12px;
     border-radius: 10px;
     margin-bottom: 10px;
+    gap: 10px;
 }
 
 .tarih-etiketi { font-size: 11px; opacity: 0.5; margin-left: 8px; }
 
 /* Ana Menüdeki Tekli Sil Butonu */
-li button { background: #ff4757 !important; padding: 5px 10px !important; color: white !important; }
+li button { background: #ff4757 !important; padding: 5px 10px !important; color: white !important; width: auto !important; height: auto !important;}
 
-/* --- YAPILANLAR MENÜSÜ: YAN YANA EŞİT BUTONLAR --- */
+/* YAPILANLAR MENÜSÜ: YAN YANA EŞİT BUTONLAR */
 .islem-butonlari {
     display: flex;
     flex-direction: row; 
-    gap: 8px; /* İki buton arasındaki boşluk */
+    gap: 8px;
     align-items: center;
 }
 
-.islem-butonlari button {
-    width: 60px !important; 
-    height: 32px !important; 
-    padding: 0 !important; 
-    margin: 0 !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px !important;
-    border-radius: 8px !important;
-}
-
-/* Yan Yana Butonların Renkleri */
-.islem-butonlari .btn-geri {
-    background: #00d4ff !important;
-    color: #0a0a0a !important;
-}
-
-.islem-butonlari .btn-sil {
-    background: #ff4757 !important;
-    color: white !important;
-}
-
-/* Mobil Görünüm (Sunumda Bozulmayı Önler) */
-@media (max-width: 850px) {
-    .done-section { display: none; } 
-}
-
-/* --- YAPILANLAR BUTONLARI KESİN ÇÖZÜM --- */
+/* YAPILANLAR BUTONLARI KESİN ÇÖZÜM */
 #done-list li div {
     display: flex !important;
-    gap: 10px !important; /* Butonlar arasındaki boşluk */
+    gap: 10px !important;
     align-items: center !important;
 }
 
@@ -185,15 +162,51 @@ li button { background: #ff4757 !important; padding: 5px 10px !important; color:
     border-radius: 8px !important;
 }
 
-/* Geri Butonu (Mavi) */
 #done-list li button.btn-geri {
     background: #00d4ff !important;
     color: #0a0a0a !important;
 }
 
-/* Sil Butonu (Kırmızı) */
-#done-list li button:not(.btn-geri) {
+#done-list li button.btn-sil {
     background: #ff4757 !important;
     color: white !important;
 }
 
+/* ======================================================
+   SADECE MOBİL UYUMLULUK DOKUNUŞU (DİZAYN AYNI)
+   ====================================================== */
+@media (max-width: 850px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto; /* Kaydırmayı mobilde zorla aç */
+    }
+
+    .done-section {
+        position: relative; /* Sabitlikten kurtardık */
+        left: 0;
+        top: 0;
+        width: 90%; /* Ekranın geneline yayılsın */
+        max-height: none; /* Kaydırılabilir olsun */
+        margin-top: 20px;
+        order: 2; /* "Yapılanlar" alta geçsin */
+    }
+
+    .todo-section {
+        width: 90%;
+        min-width: unset; /* Ekran daralınca küçülebilsin */
+        padding: 50px 20px 30px 20px;
+        order: 1; /* "To Do" üstte kalsın */
+    }
+
+    #todo-input {
+        width: 100%; /* Giriş kutusu tam genişlik */
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .input-group {
+        flex-direction: column; /* Mobilde input ve butonu alt alta koyar */
+        align-items: center;
+    }
+}
