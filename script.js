@@ -49,7 +49,13 @@ function removeTodo(btn) {
 function renderDoneTodo(text) {
     const ul = document.getElementById('done-list');
     const li = document.createElement('li');
-    li.innerHTML = `<span class="gorev-metni">${text}</span><div><button class="btn-geri" onclick="restoreTodo(this)">Geri</button><button onclick="this.parentElement.parentElement.remove();saveDoneTodos();">Sil</button></div>`;
+    li.innerHTML = `
+        <span class="gorev-metni">${text}</span>
+        <div class="islem-butonlari">
+            <button class="btn-geri" onclick="restoreTodo(this)">Geri</button>
+            <button class="btn-sil" onclick="this.parentElement.parentElement.remove();saveDoneTodos();">Sil</button>
+        </div>
+    `;
     ul.appendChild(li);
 }
 
@@ -85,4 +91,3 @@ document.addEventListener('mousemove', (e) => {
     isik.style.left = e.clientX + 'px';
     isik.style.top = e.clientY + 'px';
 });
-
