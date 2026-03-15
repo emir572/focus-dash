@@ -84,13 +84,12 @@ async function loadTodosFromCloud() {
         ulDone.innerHTML = "";
         doneSnap.forEach(doc => {
             const li = document.createElement('li');
-            li.innerHTML = `<span class="gorev-metni">${doc.data().content}</span><div class="islem-butonlari"><button class="btn-sil" onclick="finalDelete('${doc.id}')">Sil</button></div>`;
+            // GERİ AL BUTONU BURAYA EKLENDİ
+            li.innerHTML = `<span class="gorev-metni">${doc.data().content}</span><div class="islem-butonlari"><button onclick="restoreTodo('${doc.id}', this)">Geri Al</button><button class="btn-sil" onclick="finalDelete('${doc.id}')">Sil</button></div>`;
             ulDone.appendChild(li);
         });
     }
 }
-
-// ... (YUKARIDAKİ loadTodosFromCloud KISMINA KADAR OLAN YERLER AYNI KALACAK)
 
 async function removeTodo(btn, docId) {
     const user = auth.currentUser;
@@ -104,6 +103,24 @@ async function removeTodo(btn, docId) {
 
     // Sonra "todos" (Bekleyenler) koleksiyonundan sil
     await db.collection("users").doc(user.uid).collection("todos").doc(docId).delete();
+    
+    // Listeyi yenile
+    loadTodosFromCloud();
+}
+
+// YENİ EKLENEN GERİ AL FONKSİYONU
+async function restoreTodo(docId, btn) {
+    const user = auth.currentUser;
+    const text = btn.closest('li').querySelector('.gorev-metni').innerHTML;
+
+    // "todos" (Bekleyenler) koleksiyonuna geri ekle
+    await db.collection("users").doc(user.uid).collection("todos").add({
+        content: text,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    // "done" (Yapılanlar) koleksiyonundan sil
+    await db.collection("users").doc(user.uid).collection("done").doc(docId).delete();
     
     // Listeyi yenile
     loadTodosFromCloud();
