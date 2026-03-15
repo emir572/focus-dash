@@ -223,4 +223,36 @@ li button { background: #916BBF !important; padding: 5px 10px !important; color:
         box-sizing: border-box;
     }
 }
+/* Giriş Ekranı Düzenlemesi */
+.login-box {
+    flex-direction: column !important;
+    gap: 15px;
+}
 
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+#auth-error {
+    color: #ff4757;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+#logout-btn:hover {
+    color: #ff4757;
+    border-color: #ff4757;
+}
