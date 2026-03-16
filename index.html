@@ -18,7 +18,14 @@
         <div id="greeting" style="margin-bottom: 20px;">GİRİŞ YAP</div>
         <div class="input-group" style="flex-direction: column; gap: 15px; display: flex; align-items: center;">
             <input type="email" id="login-email" placeholder="E-posta" style="width: 100%;">
-            <input type="password" id="login-password" placeholder="Şifre" style="width: 100%;">
+            
+            <div class="password-wrapper" style="position: relative; display: flex; align-items: center; width: 100%;">
+                <input type="password" id="login-password" placeholder="Şifre" style="width: 100%; padding-right: 70px;">
+                <button type="button" 
+                    onclick="const p=document.getElementById('login-password'); p.type=p.type==='password'?'text':'password'; this.innerText=p.type==='password'?'GÖSTER':'GİZLE';" 
+                    style="position: absolute; right: 5px; padding: 10px; background: transparent; color: #00d4ff; font-size: 11px; border: none; font-weight: bold; cursor: pointer; z-index: 1000; transform: none !important; box-shadow: none !important;">GÖSTER</button>
+            </div>
+
             <div style="display: flex; gap: 10px; width: 100%;">
                 <button onclick="handleLogin()" style="flex: 1;">Giriş</button>
                 <button onclick="handleSignUp()" style="flex: 1; background: #916BBF !important;">Kayıt</button>
@@ -49,25 +56,25 @@
 
     <div class="right-sidebar" id="right-sidebar" style="display: none;">
         <div class="fb-panel" id="fb-section">
-    <div class="weather-nav"> 
-        <button onclick="toggleFbBranch()" class="w-nav-btn">❮</button>
-        <h2 id="fb-branch-title" style="margin:0;">Fenerbahçe</h2>
-        <button onclick="toggleFbBranch()" class="w-nav-btn">❯</button>
-    </div>
+            <div class="weather-nav"> 
+                <button onclick="toggleFbBranch()" class="w-nav-btn">❮</button>
+                <h2 id="fb-branch-title" style="margin:0;">Fenerbahçe</h2>
+                <button onclick="toggleFbBranch()" class="w-nav-btn">❯</button>
+            </div>
 
-    <div class="fb-card">
-        <div class="fb-header" id="fb-match-status">VERİ ÇEKİLİYOR...</div>
-        <div class="fb-score-row">
-            <span id="fb-home-team">FB</span>
-            <span class="score-box" id="fb-score">...</span>
-            <span id="fb-away-team">RAKİP</span>
+            <div class="fb-card">
+                <div class="fb-header" id="fb-match-status">VERİ ÇEKİLİYOR...</div>
+                <div class="fb-score-row">
+                    <span id="fb-home-team">FB</span>
+                    <span class="score-box" id="fb-score">...</span>
+                    <span id="fb-away-team">RAKİP</span>
+                </div>
+                <div class="fb-footer" id="fb-match-detail" style="margin-top: 15px; font-size: 13px; color: #ccc;">
+                    Lütfen Bekleyin...
+                </div>
+            </div>
+            <a href="https://www.fenerbahce.org/fikstur" target="_blank" id="fb-link" class="fb-link-btn">Fikstür ve Detaylar</a>
         </div>
-        <div class="fb-footer" id="fb-match-detail" style="margin-top: 15px; font-size: 13px; color: #ccc;">
-            Lütfen Bekleyin...
-        </div>
-    </div>
-    <a href="https://www.fenerbahce.org/fikstur" target="_blank" id="fb-link" class="fb-link-btn">Fikstür ve Detaylar</a>
-</div>
 
         <div class="weather-panel" id="weather-section">
             <div class="weather-nav">
@@ -102,11 +109,12 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
+
     <div class="news-ticker">
-    <div class="ticker-title" style="background: #2ecc71 !important; border-right: 2px solid #27ae60;">CANLI SKOR</div>
-    <div class="ticker-wrap">
-        <div class="ticker-move" id="news-content">Skorlar güncelleniyor...</div>
+        <div class="ticker-title" style="background: #2ecc71 !important; border-right: 2px solid #27ae60;">CANLI SKOR</div>
+        <div class="ticker-wrap">
+            <div class="ticker-move" id="news-content">Skorlar güncelleniyor...</div>
+        </div>
     </div>
-</div>
 </body>
 </html>
