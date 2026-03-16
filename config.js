@@ -1,4 +1,3 @@
-// Bu dosya SENİN ÖZEL ANAHTARLARIN. GitHub'a atma!
 const firebaseConfig = {
     apiKey: "AIzaSyB1ZCY04CLLzu38N2pc9kkd6q7QpsmOxIc",
     authDomain: "focus-dash.firebaseapp.com",
