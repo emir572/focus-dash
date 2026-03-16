@@ -1,6 +1,5 @@
-/* Ana Arka Plan */
 body {
-    background-color: #0a0a0a;
+    background-color: #050505;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
@@ -11,16 +10,28 @@ body {
     padding: 20px 0;    
     position: relative;
     overflow-x: hidden; 
-    overflow-y: auto;   
-    touch-action: pan-x pan-y; 
 }
 
-/* Epic Işık Efekti */
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('fb2.jfif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(100%) brightness(25%) blur(4px);
+    z-index: -1;
+    transform: scale(1.1);
+}
+
 .epic-light {
     position: absolute;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(9, 9, 121, 0) 70%);
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, rgba(9, 9, 121, 0) 70%);
     border-radius: 50%;
     pointer-events: none;
     transform: translate(-50%, -50%);
@@ -29,230 +40,197 @@ body {
     filter: blur(50px);
 }
 
-/* Sol Taraf - Yapılanlar Menüsü */
-.done-section {
-    position: absolute;
-    left: 40px;
-    top: 40px;
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 24px;
-    width: 320px;
-    max-height: calc(100vh - 80px);
-    display: flex;
-    flex-direction: column;
-}
-
-/* Orta Kısım - Ana Menü */
-.todo-section {
+.todo-section, .done-section, .fb-panel, .weather-panel {
     position: relative;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 60px 40px 40px 40px;
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
+}
+
+.done-section {
+    position: absolute; left: 40px; top: 40px;
+    padding: 20px; width: 320px; max-height: calc(100vh - 80px);
+    display: flex; flex-direction: column;
+}
+
+.todo-section {
+    padding: 60px 40px 40px 40px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    min-width: 450px;
-    margin-top: 40px; 
+    text-align: center; min-width: 450px; margin-top: 40px; 
 }
 
-/* Gün ve Tarih Konumlandırma */
-#current-day {
-    position: absolute;
-    top: 20px;
-    left: 25px;
-    font-size: 16px;
-    color: #00d4ff;
-    opacity: 0.8;
+.right-sidebar {
+    position: absolute; right: 40px; top: 40px; width: 300px;
+    display: flex; flex-direction: column; gap: 20px;
 }
 
-#current-date {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    font-size: 16px;
-    color: #00d4ff;
-    opacity: 0.8;
+#current-day { position: absolute; top: 20px; left: 25px; color: #00d4ff; font-size: 15px; }
+#current-date { position: absolute; top: 20px; right: 25px; color: #00d4ff; font-size: 15px; }
+#clock { font-size: 48px; font-weight: bold; color: #00d4ff; margin-bottom: 5px; }
+
+#greeting { 
+    font-size: 20px; 
+    margin-bottom: 35px; 
+    opacity: 0.8; 
+    text-transform: uppercase; 
+    letter-spacing: 2px;
 }
 
-/* Saat ve Başlık */
-#clock { font-size: 48px; font-weight: bold; margin-bottom: 5px; color: #00d4ff; }
-#greeting { font-size: 20px; margin-bottom: 20px; opacity: 0.8; }
-
-/* İNPUT VE BOŞLUK */
 #todo-input {
-    padding: 12px 20px;
-    border-radius: 8px;
-    border: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    font-size: 16px;
-    outline: none;
-    margin-right: 15px;
-    transition: all 0.3s;
-    width: 60%; 
+    padding: 12px 15px; border-radius: 8px; border: none;
+    background: rgba(255, 255, 255, 0.1); color: white; width: 65%;
+    outline: none; margin-right: 10px;
 }
 
-#todo-input:focus {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-}
-
-/* Ana Buton Stili */
 button {
-    padding: 12px 24px;
-    border-radius: 8px;
-    border: none;
-    background: #00d4ff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    touch-action: manipulation;
+    padding: 12px 20px; border-radius: 8px; border: none;
+    background: #00d4ff; font-weight: bold; cursor: pointer; transition: 0.3s; color: #0a0a0a;
 }
+button:hover { transform: translateY(-2px); background: #fff; }
 
-button:hover { 
-    background: white; 
-    transform: translateY(-2px); 
-}
-
-/* Liste Yapısı */
-ul { list-style: none; padding: 0; margin-top: 20px; max-height: 400px; overflow-y: auto; }
+ul { list-style: none; padding: 0; margin-top: 20px; }
 li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    gap: 10px;
+    background: rgba(255, 255, 255, 0.05); padding: 12px 15px;
+    border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
 }
 
-.tarih-etiketi { font-size: 11px; opacity: 0.5; margin-left: 8px; }
-
-/* İŞTE BURASI DEĞİŞTİ: Ana Menüdeki Tekli Gönder (Eski Sil) Butonu */
-li button { background: #916BBF !important; padding: 5px 10px !important; color: white !important; width: auto !important; height: auto !important;}
-
-/* YAPILANLAR MENÜSÜ: YAN YANA EŞİT BUTONLAR */
-.islem-butonlari {
-    display: flex;
-    flex-direction: row; 
-    gap: 8px;
-    align-items: center;
+/* --- YENİ DÜZENLEME: GÖREV METNİ VE TARİH HİZALAMASI --- */
+.gorev-metni {
+    flex: 1; /* Boş alanı kaplar, butonu sağa iter */
+    margin-right: 20px; /* Gönder butonuna asla yapışmaz, 20px mesafe bırakır */
+    line-height: 1.4;
+    text-align: left;
 }
 
-/* YAPILANLAR BUTONLARI KESİN ÇÖZÜM */
-#done-list li div {
-    display: flex !important;
-    gap: 10px !important;
-    align-items: center !important;
+.tarih-etiketi {
+    display: inline-block;
+    font-size: 11px !important;
+    color: #888 !important;
+    margin-left: 10px; /* Görev yazısıyla arasında tam kıvamında bir boşluk */
+    font-weight: normal;
+    white-space: nowrap; /* Tarihin iki satıra bölünmesini kesinlikle engeller */
 }
+/* -------------------------------------------------------- */
 
-#done-list li button {
-    width: 60px !important; 
-    height: 32px !important; 
-    margin: 0 !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    font-size: 13px !important;
+#todo-list li button {
+    background: #916BBF !important;
+    color: white !important;
+    padding: 8px 15px !important;
     border-radius: 8px !important;
 }
 
-#done-list li button.btn-geri {
-    background: #00d4ff !important;
-    color: #0a0a0a !important;
-}
-
-#done-list li button.btn-sil {
-    background: #ff4757 !important;
-    color: white !important;
-}
-
-/* ======================================================
-   SADECE MOBİL UYUMLULUK DOKUNUŞU (DİZAYN AYNI)
-   ====================================================== */
-@media (max-width: 850px) {
-    body {
-        flex-direction: column;
-        align-items: center;
-        overflow-y: auto; 
-        padding: 20px 10px; /* Kenarlardan taşmayı önlemek için küçük bir pay */
-    }
-
-    .done-section {
-        position: relative; 
-        left: 0 !important; /* Kesinlikle sıfırla */
-        top: 0 !important;
-        width: 95% !important; /* Kenarlara çok yapışmasın diye %95 yaptık */
-        max-height: none; 
-        margin-top: 20px;
-        order: 2; 
-        box-sizing: border-box; /* Padding'in genişliği bozmasını engeller */
-    }
-
-    .todo-section {
-        width: 95% !important; 
-        min-width: unset !important; /* Kaymanın ana sebebi buydu, bunu kırdık */
-        padding: 50px 20px 30px 20px;
-        order: 1; 
-        box-sizing: border-box;
-    }
-
-    #todo-input {
-        width: 100%; 
-        margin-right: 0;
-        margin-bottom: 10px;
-        box-sizing: border-box;
-    }
-
-    .input-group {
-        flex-direction: column; 
-        align-items: center;
-        width: 100%;
-    }
-    
-    /* İkonların veya yazıların dışarı taşmasını önlemek için genel kural */
-    * {
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-}
-/* Giriş Ekranı Düzenlemesi */
-.login-box {
-    flex-direction: column !important;
-    gap: 15px;
-}
-
-.auth-buttons {
+.islem-butonlari {
     display: flex;
     gap: 10px;
+}
+
+.islem-butonlari button:first-child {
+    background: #00d4ff !important;
+    color: #0a0a0a !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+}
+
+.islem-butonlari button.btn-sil {
+    background: #ff4757 !important;
+    color: white !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+}
+
+.fb-panel { 
+    border: 1px solid rgba(251, 211, 4, 0.4); 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    width: 100%; 
+    box-sizing: border-box;
+}
+.fb-panel h2 { color: #fbd304; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; }
+.fb-card { 
+    background: rgba(0, 0, 0, 0.3); 
+    border-radius: 15px; 
+    padding: 20px 10px; 
+    width: 100%; 
+    box-sizing: border-box; 
+    text-align: center; 
+}
+.fb-header { font-size: 12px; color: #fbd304; font-weight: bold; margin-bottom: 15px; text-align: center; }
+.fb-score-row { display: flex; justify-content: center; gap: 15px; align-items: center; font-size: 18px; }
+.score-box { background: #fbd304; color: #002e5d; padding: 4px 10px; border-radius: 5px; font-weight: bold; }
+.fb-link-btn { 
+    display: inline-block; margin-top: 15px; background: #fbd304; 
+    color: #002e5d !important; text-decoration: none; padding: 8px 15px; 
+    border-radius: 8px; font-weight: bold; font-size: 12px; text-align: center;
+}
+
+.weather-panel { padding: 20px; border: 1px solid rgba(0, 212, 255, 0.2); width: 100%; box-sizing: border-box; }
+.weather-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.w-nav-btn { background: none; color: #00d4ff; font-size: 18px; padding: 0 10px; }
+.weather-content { display: flex; justify-content: space-around; background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 15px 5px; margin-bottom: 10px;}
+.w-time-block span { font-size: 10px; color: #888; display: block; text-align: center;}
+.w-time-block strong { text-align: center; }
+.weather-details { font-size: 13px; color: #bbb; line-height: 1.6; text-align: center;}
+
+@media (max-width: 1300px) {
+    body { flex-direction: column; align-items: center; padding: 20px 0; }
+    .done-section, .todo-section, .right-sidebar { position: relative; left: auto; top: auto; right: auto; width: 92% !important; margin-bottom: 20px; }
+    .todo-section { min-width: unset; }
+}
+
+.news-ticker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    height: 45px;
+    display: flex;
+    align-items: center;
+    z-index: 9999;
+    border-top: 2px solid #ff4757;
+    overflow: hidden;
 }
 
-#auth-error {
-    color: #ff4757;
-    margin-top: 10px;
+.ticker-title {
+    background: #ff4757;
+    color: white;
+    padding: 0 25px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
     font-size: 14px;
+    z-index: 100;
+    white-space: nowrap;
+    box-shadow: 10px 0 20px rgba(0,0,0,0.5);
 }
 
-#logout-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    border: 1px solid #444;
-    color: #888;
-    padding: 5px 10px;
-    font-size: 12px;
+.ticker-wrap {
+    flex: 1;
+    overflow: hidden;
 }
 
-#logout-btn:hover {
-    color: #ff4757;
-    border-color: #ff4757;
+.ticker-move {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 500;
+    animation: ticker 150s linear infinite; /* 60s: Daha akıcı ve okunabilir bir hız */
+    padding-left: 100%; /* Başlangıçta ekranın dışından gelmesi için */
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.news-ticker:hover .ticker-move {
+    animation-play-state: paused; /* Üstüne gelince durur, okuması kolay olur */
 }
