@@ -101,7 +101,7 @@ async function fetchFenerbahceData() {
     const config = {
         football: {
             url: 'https://site.api.espn.com/apis/site/v2/sports/soccer/all/teams/436',
-            title: 'Fenerbahçe Futbol',
+            title: 'Fenerbahçe',
             link: 'https://www.fenerbahce.org/fikstur/erkek-futbol-fiksturu',
             id: '436'
         },
