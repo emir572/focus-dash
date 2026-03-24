@@ -55,27 +55,6 @@
     </div>
 
     <div class="right-sidebar" id="right-sidebar" style="display: none;">
-        <div class="fb-panel" id="fb-section">
-            <div class="weather-nav"> 
-                <button onclick="toggleFbBranch()" class="w-nav-btn">❮</button>
-                <h2 id="fb-branch-title" style="margin:0;">Fenerbahçe</h2>
-                <button onclick="toggleFbBranch()" class="w-nav-btn">❯</button>
-            </div>
-
-            <div class="fb-card">
-                <div class="fb-header" id="fb-match-status">VERİ ÇEKİLİYOR...</div>
-                <div class="fb-score-row">
-                    <span id="fb-home-team">FB</span>
-                    <span class="score-box" id="fb-score">...</span>
-                    <span id="fb-away-team">RAKİP</span>
-                </div>
-                <div class="fb-footer" id="fb-match-detail" style="margin-top: 15px; font-size: 13px; color: #ccc;">
-                    Lütfen Bekleyin...
-                </div>
-            </div>
-            <a href="https://www.fenerbahce.org/fikstur" target="_blank" id="fb-link" class="fb-link-btn">Fikstür ve Detaylar</a>
-        </div>
-
         <div class="weather-panel" id="weather-section">
             <div class="weather-nav">
                 <button onclick="prevWeather()" class="w-nav-btn">❮</button>
@@ -109,12 +88,5 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
-
-    <div class="news-ticker">
-        <div class="ticker-title" style="background: #2ecc71 !important; border-right: 2px solid #27ae60;">CANLI SKOR</div>
-        <div class="ticker-wrap">
-            <div class="ticker-move" id="news-content">Skorlar güncelleniyor...</div>
-        </div>
-    </div>
 </body>
 </html>
