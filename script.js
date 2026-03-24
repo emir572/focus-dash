@@ -15,9 +15,7 @@ auth.onAuthStateChanged(user => {
         if(todoSec) todoSec.style.display = 'block'; 
         if(rightSidebar) {
             rightSidebar.style.display = 'flex'; 
-            fetchFenerbahceData(); // FB Branş Verisini Çek
             fetchWeatherForCity(0); // Hava Durumunu Çek
-            fetchLiveScores();      // Canlı Skorları Çek
         }
         loadTodosFromCloud();
     } else {
@@ -94,86 +92,6 @@ async function restoreTodo(docId, btn) {
 
 async function finalDelete(docId) { const user = auth.currentUser; await db.collection("users").doc(user.uid).collection("done").doc(docId).delete(); loadTodosFromCloud(); }
 
-// --- 3. FENERBAHÇE BRANŞ MOTORU (FUTBOL & BASKETBOL) ---
-let currentFbBranch = 'football'; 
-
-async function fetchFenerbahceData() {
-    const config = {
-        football: {
-            url: 'https://site.api.espn.com/apis/site/v2/sports/soccer/all/teams/436',
-            title: 'Fenerbahçe',
-            link: 'https://www.fenerbahce.org/fikstur/erkek-futbol-fiksturu',
-            id: '436'
-        },
-        basketball: {
-            url: 'https://site.api.espn.com/apis/site/v2/sports/basketball/euroleague/teams/fener',
-            title: 'Fenerbahçe Beko',
-            link: 'https://www.fenerbahce.org/fikstur/erkek-basketbol-fiksturu',
-            id: 'fener'
-        }
-    };
-
-    const active = config[currentFbBranch];
-    if(document.getElementById('fb-branch-title')) document.getElementById('fb-branch-title').innerText = active.title;
-    if(document.getElementById('fb-link')) document.getElementById('fb-link').href = active.link;
-
-    try {
-        const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(active.url)}`);
-        const proxyData = await res.json();
-        const data = JSON.parse(proxyData.contents);
-        
-        if (!data.team || !data.team.nextEvent || data.team.nextEvent.length === 0) {
-            document.getElementById('fb-match-status').innerText = "MAÇ BULUNAMADI";
-            document.getElementById('fb-score').innerText = "-";
-            document.getElementById('fb-match-detail').innerText = "Yakın tarihte maç görünmüyor.";
-            return;
-        }
-
-        const event = data.team.nextEvent[0];
-        const match = event.competitions[0];
-        const homeTeam = match.competitors.find(c => c.homeAway === 'home');
-        const awayTeam = match.competitors.find(c => c.homeAway === 'away');
-        const isFbHome = homeTeam.team.id === active.id || homeTeam.team.abbreviation === "FNB" || homeTeam.team.abbreviation === "FEN";
-        const opponent = isFbHome ? awayTeam : homeTeam;
-        
-        const fbAbbr = currentFbBranch === 'football' ? "FB" : "FNB";
-        const oppAbbr = opponent.team.abbreviation || opponent.team.name.substring(0,3).toUpperCase();
-        
-        const homeScore = homeTeam.score?.displayValue || '0';
-        const awayScore = awayTeam.score?.displayValue || '0';
-        const status = match.status.type.description.toLowerCase();
-        const displayClock = match.status.displayClock || ""; 
-
-        const dateObj = new Date(match.date);
-        const dateStr = dateObj.toLocaleDateString('tr-TR') + ' ' + dateObj.toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'});
-        
-        let headerText = "SON MAÇ";
-        let scoreText = `${homeScore} - ${awayScore}`;
-        
-        if (status.includes('scheduled')) {
-            headerText = "SIRADAKİ MAÇ";
-            scoreText = "v"; 
-        } else if (status.includes('progress') || status.includes('half')) {
-            headerText = `🔴 CANLI - ${displayClock}`;
-            scoreText = `${homeScore} - ${awayScore}`;
-        } else if (status.includes('final')) {
-            headerText = "MAÇ SONUCU";
-        }
-        
-        document.getElementById('fb-match-status').innerText = headerText;
-        document.getElementById('fb-home-team').innerText = isFbHome ? fbAbbr : oppAbbr;
-        document.getElementById('fb-away-team').innerText = isFbHome ? oppAbbr : fbAbbr;
-        document.getElementById('fb-score').innerText = scoreText;
-        document.getElementById('fb-match-detail').innerHTML = `Rakip: <b>${opponent.team.displayName}</b><br>Tarih: ${dateStr}`;
-    } catch (err) { console.error("FB Veri Hatası:", err); }
-}
-
-function toggleFbBranch() {
-    currentFbBranch = (currentFbBranch === 'football') ? 'basketball' : 'football';
-    document.getElementById('fb-match-status').innerText = "YÜKLENİYOR...";
-    fetchFenerbahceData();
-}
-
 // --- 4. HAVA DURUMU SİSTEMİ ---
 const weatherDistricts = [
     {name: 'Sarıyer', lat: 41.1667, lon: 29.0500}, {name: 'Beşiktaş', lat: 41.0430, lon: 29.0068},
@@ -221,49 +139,6 @@ function updateWeatherDots(index) {
     }
 }
 
-// --- 5. CANLI SKOR ŞERİDİ (TİCKER) ---
-async function fetchLiveScores() {
-    const tickerContent = document.getElementById('news-content'); if (!tickerContent) return;
-    const today = new Date(); const endDate = new Date(); endDate.setDate(today.getDate() + 3);
-    const formatDate = (date) => { return date.getFullYear() + String(date.getMonth() + 1).padStart(2, '0') + String(date.getDate()).padStart(2, '0'); };
-    const dateStr = `${formatDate(today)}-${formatDate(endDate)}`;
-
-    const leagues = [
-        { name: 'Süper Lig', url: `https://site.api.espn.com/apis/site/v2/sports/soccer/tur.1/scoreboard?dates=${dateStr}` },
-        { name: 'EuroLeague', url: `https://site.api.espn.com/apis/site/v2/sports/basketball/euroleague/scoreboard?dates=${dateStr}` },
-        { name: 'NBA', url: `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${dateStr}` },
-        { name: 'Şampiyonlar Ligi', url: `https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=${dateStr}` }
-    ];
-
-    try {
-        let allScores = [];
-        for (const league of leagues) {
-            try {
-                const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(league.url)}`);
-                const proxyData = await res.json(); const data = JSON.parse(proxyData.contents);
-                if (data.events) {
-                    data.events.forEach(event => {
-                        const comp = event.competitions[0];
-                        const home = comp.competitors.find(c => c.homeAway === 'home');
-                        const away = comp.competitors.find(c => c.homeAway === 'away');
-                        const status = event.status.type.name;
-                        const statusText = event.status.type.shortDetail;
-                        const homeName = home.team.abbreviation || "EV";
-                        const awayName = away.team.abbreviation || "DP";
-                        if (status === "STATUS_SCHEDULED") {
-                            const mDate = new Date(event.date);
-                            allScores.push(`${mDate.toLocaleDateString('tr-TR', {weekday:'short'})} ${mDate.getHours()}:${String(mDate.getMinutes()).padStart(2,'0')} | ${homeName} v ${awayName}`);
-                        } else {
-                            allScores.push(`${homeName} ${home.score} - ${away.score} ${awayName} (${statusText})`);
-                        }
-                    });
-                }
-            } catch (e) { console.warn(league.name + " hatası"); }
-        }
-        tickerContent.innerHTML = allScores.length > 0 ? allScores.join(' &nbsp;&nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp;&nbsp; ') + ' &nbsp;&nbsp;&nbsp;&nbsp; • ' : "Yakın zamanda maç yok.";
-    } catch (err) { tickerContent.innerText = "Skorlar yüklenemedi."; }
-}
-
 // --- 6. SAAT, IŞIK VE DÖNGÜLER ---
 function updateClock() {
     const now = new Date();
@@ -274,8 +149,21 @@ function updateClock() {
 }
 
 setInterval(updateClock, 1000);
-setInterval(fetchFenerbahceData, 60000);
-setInterval(fetchLiveScores, 300000);
 
 const isik = document.createElement('div'); isik.classList.add('epic-light'); document.body.appendChild(isik);
 document.addEventListener('mousemove', (e) => { isik.style.left = e.clientX + 'px'; isik.style.top = e.clientY + 'px'; });
+
+// --- ŞİFRE GÖSTER/GİZLE SİSTEMİ ---
+const passwordInput = document.getElementById('login-password');
+const toggleBtn = document.getElementById('toggle-password');
+
+if (toggleBtn) {
+    toggleBtn.addEventListener('click', function() {
+        // Input tipini kontrol et ve değiştir
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Buton metnini güncelle
+        this.innerText = type === 'password' ? 'GÖSTER' : 'GİZLE';
+    });
+}
